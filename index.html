@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Malzz</title>
+  <style>
+    body { font-family: Arial; background: #f5f5f5; text-align:center; padding: 50px; }
+    h1 { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Malzz</h1>
+  <p><!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MalzzStore 👑</title>
+  <style>
+    /* ===== LATAR ANIMASI ===== */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #001f3f, #111, #5f27cd);
+      background-size: 400% 400%;
+      animation: bgMove 15s infinite alternate ease-in-out;
+    }
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .ball {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+      filter: blur(2px);
+      box-shadow: 0 0 20px rgba(255,255,255,.6);
+      animation: move 20s infinite linear;
+    }
+    @keyframes move {
+      from { transform: translateY(100vh) scale(0.5) rotate(0deg); }
+      to { transform: translateY(-10vh) scale(1.5) rotate(360deg); }
+    }
+
+    /* ===== KONTEN ===== */
+    header {
+      background: rgba(255,255,255,0.15);
+      padding: 15px;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      color: #fff;
+      text-align: center;
+    }
+
+    header h1 {margin: 0; font-size: 22px;}
+    small {color: #eee;}
+
+    .info-box {
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      margin: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #f1c40f;
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 15px;
+      padding: 15px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+    }
+
+    .card h3 {margin: 10px 0;font-size: 18px;}
+    .card p {margin: 5px 0;font-weight: bold;}
+    button {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: .3s;
+    }
+    button:hover {background: #00e676;}
+
+    footer {
+      background: rgba(0,0,0,0.8);
+      color: white;
+      text-align: center;
+      padding: 12px;
+      margin-top: 20px;
+      position: sticky;
+      bottom: 0;
+      cursor: pointer;
+    }
+
+    /* ===== POPUP NOTIF ===== */
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #2ecc71;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .5s;
+    }
+    .popup.show {opacity: 1; pointer-events: auto;}
+
+    /* ===== MODAL ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%; max-width: 400px;
+      text-align: center;
+      animation: fadeIn .3s ease;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from {transform: translateY(-20px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    .close {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .cart-items {text-align: left; margin: 15px 0;}
+    .confirm-btn {
+      background: #27ae60;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .pay-section img {width: 200px; margin: 10px auto; display: block;}
+    input[type=file], input[type=text], input[type=password] { /* Menambah input[type=password] */
+      margin: 10px auto;
+      display: block;
+      padding: 8px;
+      width: 90%;
+    }
+    #preview {
+      max-width: 100%;
+      max-height: 220px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+  <div class="background" id="background"></div>
+
+  <header>
+    <h1>MalzzStore 👑</h1>
+    <small>Amanah & Cepat 👍🏻</small>
+  </header>
+
+  <div class="info-box">
+    <b>📌 Informasi Penting:</b><br>
+    - Testi bejibun mm/rekber fee kamu<br>
+    - Tidak menerima Buyer basa basi<br>
+    - Minimal pembelian tertera<br>
+    - No nego, beli banyak rate turun<br>
+    - Tidak ada pihak ketiga, admin hanya satu<br>
+    - Jam buka 15:00 - 21:30 WIB
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>AFK FISH IT 3 JAM</h3>
+      <p>Rp 3.000</p>
+      <button onclick="addToCart('AFK FISH IT 3 JAM', 3000)">Tambah</button>
+    </div>
+    <div class="card">
+      <h3>AFK FISH IT 6 JAM</h3>
+      <p>Rp 6.500</p>
+      <button onclick="addToCart('AFK FISH IT 6 JAM', 6500)">Tambah</button>
+    </div>
+    <div class="card">
+      <h3>AFK FISH IT 12 JAM</h3>
+      <p>Rp 10.000</p>
+      <button onclick="addToCart('AFK FISH IT 12 JAM', 10000)">Tambah</button>
+    </div>
+    <div class="card">
+      <h3>AFK FISH IT 24 JAM</h3>
+      <p>Rp 15.000</p>
+      <button onclick="addToCart('AFK FISH IT 24 JAM', 15000)">Tambah</button>
+    </div>
+    <div class="card">
+      <h3>MEMBERSHIP BULANAN</h3>
+      <p>Rp 30.000</p>
+      <button onclick="addToCart('MEMBERSHIP BULANAN', 30000)">Tambah</button>
+      </div>
+  </div>
+
+  <footer onclick="openCart()">Keranjang Pesanan (0)</footer>
+
+  <div id="popup" class="popup">Produk ditambahkan ke keranjang ✅</div>
+
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeCart()">&times;</span>
+      <h2>🛒 Keranjang Pesanan</h2>
+      <div id="cartItems" class="cart-items"></div>
+      <h3 id="totalHarga">Total: Rp 0</h3>
+      <p id="diskonInfo" style="color:green;font-weight:bold;"></p>
+      <button class="confirm-btn" onclick="openPayment()">Konfirmasi Pembayaran ✅</button>
+    </div>
+  </div>
+
+  <div id="payModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePayment()">&times;</span>
+      <h2>💳 Pembayaran</h2>
+      <div class="pay-section">
+        <p>Silakan transfer ke QRIS/DANA:</p>
+        <img src="https://files.catbox.moe/i1gxsa.jpg" alt="QRIS">
+        <p>No DANA: <b>085189508988</b></p>
+      </div>
+      <p>Upload Bukti Pembayaran:</p>
+      <input type="file" accept="image/*" onchange="previewFile(event)" id="buktiPembayaran">
+      <img id="preview" src="">
+      <button class="confirm-btn" onclick="openUsername()">Lanjut Isi Username ➡️</button>
+    </div>
+  </div>
+
+  <div id="userModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeUsername()">&times;</span>
+      <h2>👤 Isi Username</h2>
+      <p>Masukkan username game / akun anda:</p>
+      <input type="text" id="usernameInput" placeholder="Contoh: Malzz123">
+      <button class="confirm-btn" onclick="openPassword()">Lanjut Isi Password ➡️</button>
+    </div>
+  </div>
+
+  <div id="passModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePassword()">&times;</span>
+      <h2>🔒 Isi Password</h2>
+      <p>Masukkan password akun anda:</p>
+      <input type="password" id="passwordInput" placeholder="Masukkan password di sini">
+      <button class="confirm-btn" onclick="sendToWhatsApp()">Kirim ke Admin 📩</button>
+    </div>
+  </div>
+
+  <script>
+    let cartCount = 0;
+    let cart = [];
+    let total = 0;
+    let isProofUploaded = false; // Flag untuk bukti pembayaran
+
+    // VARIABEL DAN FUNGSI MUSIK DIHILANGKAN
+
+    function createBalls() {
+      const bg = document.getElementById("background");
+      for (let i = 0; i < 25; i++) {
+        let ball = document.createElement("div");
+        let size = Math.random() * 60 + 20;
+        ball.className = "ball";
+        ball.style.width = ball.style.height = size + "px";
+        ball.style.left = Math.random() * 100 + "%";
+        ball.style.background = `hsl(${Math.random() * 360},90%,60%)`;
+        ball.style.animationDuration = (10 + Math.random() * 20) + "s";
+        bg.appendChild(ball);
+      }
+    }
+    createBalls();
+
+    function addToCart(product, price) {
+      cartCount++;
+      cart.push({product, price});
+      document.querySelector("footer").innerText = `Keranjang Pesanan (${cartCount})`;
+
+      let popup = document.getElementById("popup");
+      popup.innerText = `${product} berhasil ditambahkan ✅`;
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 2000);
+    }
+
+    function openCart() {
+      if (cart.length === 0) {
+        alert("Keranjang masih kosong!");
+        return;
+      }
+      let cartItemsDiv = document.getElementById("cartItems");
+      total = 0;
+      cartItemsDiv.innerHTML = "";
+      cart.forEach((item, i) => {
+        total += item.price;
+        cartItemsDiv.innerHTML += `<p>${i + 1}. ${item.product} - Rp ${item.price.toLocaleString()}</p>`;
+      });
+
+      let diskonInfo = document.getElementById("diskonInfo");
+      if (cart.length >= 3) {
+        let potongan = total * 0.1;
+        total -= potongan;
+        diskonInfo.innerText = `🎉 Diskon 10% diterapkan! Hemat Rp ${potongan.toLocaleString()}`;
+      } else {
+        diskonInfo.innerText = "";
+      }
+
+      document.getElementById("totalHarga").innerText = "Total: Rp " + total.toLocaleString();
+      document.getElementById("cartModal").style.display = "flex";
+    }
+
+    function closeCart() {
+      document.getElementById("cartModal").style.display = "none";
+    }
+    
+    function openPayment() { 
+      closeCart(); 
+      document.getElementById("payModal").style.display = "flex"; 
+      document.getElementById("preview").src = "";
+      document.getElementById("buktiPembayaran").value = "";
+      isProofUploaded = false;
+    }
+    function closePayment() { document.getElementById("payModal").style.display = "none"; }
+
+    function previewFile(event) {
+      if(event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+        reader.onload = function() {
+          document.getElementById("preview").src = reader.result;
+          isProofUploaded = true; 
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      } else {
+        isProofUploaded = false; 
+      }
+    }
+
+    // Perubahan: openUsername sekarang memvalidasi bukti bayar dan menampilkan modal username
+    function openUsername() { 
+      if (!isProofUploaded) { 
+        alert("Harap upload bukti pembayaran terlebih dahulu!");
+        return;
+      }
+      closePayment(); 
+      document.getElementById("userModal").style.display = "flex"; 
+    }
+    function closeUsername() { document.getElementById("userModal").style.display = "none"; }
+
+    // Fungsi BARU: Menampilkan modal password
+    function openPassword() {
+        let username = document.getElementById("usernameInput").value;
+        if (username.trim() === "") { 
+            alert("Isi dulu username!"); 
+            return; 
+        }
+        closeUsername();
+        document.getElementById("passModal").style.display = "flex";
+    }
+    function closePassword() { document.getElementById("passModal").style.display = "none"; }
+
+
+    // Perubahan: sendToWhatsApp sekarang mengambil username DAN password
+    function sendToWhatsApp() {
+      let username = document.getElementById("usernameInput").value;
+      let password = document.getElementById("passwordInput").value;
+
+      if (password.trim() === "") { alert("Isi dulu password!"); return; }
+
+      // Logika WhatsApp
+      let text = "BANG MALZZ ADA ORDERAN NIH%0A%0A";
+      text += `👤 Username: ${username}%0A`;
+      text += `🔒 Password: ${password}%0A%0A`; // Menambahkan Password
+      text += "🛒 Order:%0A";
+      cart.forEach((item, i) => {
+        text += `${i + 1}. ${item.product} - Rp ${item.price.toLocaleString('id-ID')}%0A`;
+      });
+      text += `%0ATotal: Rp ${total.toLocaleString('id-ID')}%0A%0A*NOTE : SERTAI FOTO BUKTI PEMBAYARANNYA JUGA*.`;
+      
+      // Buka link WhatsApp
+      window.open(`https://wa.me/6285189508988?text=${text}`, "_blank");
+
+      // Setelah dikirim, kosongkan keranjang
+      cart = [];
+      cartCount = 0;
+      document.querySelector("footer").innerText = `Keranjang Pesanan (0)`;
+      closePassword();
+
+      // Tampilkan notifikasi berhasil
+      let popup = document.getElementById("popup");
+      popup.innerText = `Pesanan terkirim ke WhatsApp! Admin akan segera memproses.`;
+      popup.classList.add("show");
+      setTimeout(() => popup.classList.remove("show"), 4000);
+    }
+  </script>
+</body>
+</html>
+</p>
+</body>
+</html>
